@@ -88,24 +88,25 @@ func main() {
 		},
 		Windows: []*bootstrap.Window{
 			{
-				Homepage:       "https://baidu.com/",
+				Homepage:       "http://127.0.0.1:8080/",
 				MessageHandler: handleMessages,
 				Options: &astilectron.WindowOptions{
-					BackgroundColor: astikit.StrPtr("#333"),
+					// BackgroundColor: astikit.StrPtr("#333"),
 
 					// 打开时居中
 					Center: astikit.BoolPtr(true),
 
 					// 禁止改变窗口大小
-					// Resizable: astikit.BoolPtr(false),
+					Resizable: astikit.BoolPtr(true),
 
 					// 窗口大小
-					Height: astikit.IntPtr(600),
-					Width:  astikit.IntPtr(800),
+					Height: astikit.IntPtr(720),
+					Width:  astikit.IntPtr(1280),
 
 					// 无边框窗口
-					Frame:       astikit.BoolPtr(true),
-					Transparent: astikit.BoolPtr(true),
+					Frame:           astikit.BoolPtr(false),
+					Transparent:     astikit.BoolPtr(true),
+					BackgroundColor: astikit.StrPtr("#00000000"),
 
 					WebPreferences: &astilectron.WebPreferences{
 						NodeIntegrationInWorker: astikit.BoolPtr(false),
