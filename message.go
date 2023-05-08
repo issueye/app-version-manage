@@ -25,7 +25,6 @@ func sendMessageTest(w *astilectron.Window) {
 func handleMessages(w *astilectron.Window, m bootstrap.MessageIn) (payload interface{}, err error) {
 	if m.Name == "hello" {
 		// 发送测试
-		sendMessageTest(w)
 
 		return "world", nil
 	}
@@ -40,13 +39,16 @@ func handleMessages(w *astilectron.Window, m bootstrap.MessageIn) (payload inter
 	// 全屏
 	if m.Name == "screen" {
 		fmt.Println("isMax", isMax)
+		// sendMessageTest(w)
 		if isMax {
 			isMax = !isMax
 			w.Unmaximize()
+			fmt.Println("恢复窗口")
 			return "恢复窗口", nil
 		} else {
 			isMax = !isMax
 			w.Maximize()
+			fmt.Println("最大化窗口")
 			return "最大化窗口", nil
 		}
 	}

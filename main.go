@@ -78,8 +78,15 @@ func main() {
 		}},
 		OnWait: func(_ *astilectron.Astilectron, ws []*astilectron.Window, _ *astilectron.Menu, _ *astilectron.Tray, _ *astilectron.Menu) error {
 			w = ws[0]
+
 			go func() {
 				time.Sleep(5 * time.Second)
+				w.ExecuteJavaScript(`console.log('测试')`)
+				w.SendMessage(`{code: 200}`, func(m *astilectron.EventMessage) {
+					var s string
+					m.UnmarshalJSON([]byte(s))
+					fmt.Println("s", s)
+				})
 				if err := bootstrap.SendMessage(w, "check.out.menu", "Don't forget to check out the menu!"); err != nil {
 					l.Println(fmt.Errorf("sending check.out.menu event failed: %w", err))
 				}
@@ -88,21 +95,16 @@ func main() {
 		},
 		Windows: []*bootstrap.Window{
 			{
-				Homepage:       "http://127.0.0.1:8080/",
+				Homepage:       "http://localhost:8080/",
 				MessageHandler: handleMessages,
 				Options: &astilectron.WindowOptions{
-					// BackgroundColor: astikit.StrPtr("#333"),
-
 					// 打开时居中
 					Center: astikit.BoolPtr(true),
-
 					// 禁止改变窗口大小
 					Resizable: astikit.BoolPtr(true),
-
 					// 窗口大小
 					Height: astikit.IntPtr(720),
 					Width:  astikit.IntPtr(1280),
-
 					// 无边框窗口
 					Frame:           astikit.BoolPtr(false),
 					Transparent:     astikit.BoolPtr(true),
